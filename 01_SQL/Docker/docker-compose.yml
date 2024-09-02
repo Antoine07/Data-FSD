@@ -1,0 +1,19 @@
+services:
+  db:
+    container_name: docker_mysql
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - ${PWD}/data:/var/lib/mysql
+      - ${PWD}/scripts/install.sql:/docker-entrypoint-initdb.d/install.sql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+
+      
