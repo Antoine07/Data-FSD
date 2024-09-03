@@ -174,21 +174,7 @@ HAVING num_pilots > 1;
 
 Cela récupère les compagnies avec plus d'un pilote.
 
-## 13. Utilisation des Jointures (`JOIN`)
-
-Les jointures sont utilisées pour combiner des lignes de deux ou plusieurs tables en fonction d'une condition commune.
-
-**Exemple :**
-
-```sql
-SELECT p.name, p.last_name, c.name AS company_name
-FROM pilots p
-INNER JOIN companies c ON p.company = c.comp;
-```
-
-Cela récupère les noms des pilotes et le nom de leur compagnie respective.
-
-## 14. Sous-requêtes (Subqueries)
+## 13. Sous-requêtes (Subqueries)
 
 Les sous-requêtes sont des requêtes imbriquées dans une autre requête.
 
@@ -201,7 +187,7 @@ WHERE company IN (SELECT comp FROM companies WHERE city = 'San Francisco');
 
 Cela récupère les noms et prénoms des pilotes qui travaillent pour des compagnies situées à San Francisco.
 
-## 15. Utilisation de `LIKE` pour les Recherches de Modèle
+## 14. Utilisation de `LIKE` pour les Recherches de Modèle
 
 L'opérateur `LIKE` est utilisé pour rechercher un modèle spécifique dans une colonne.
 
@@ -213,7 +199,7 @@ SELECT name, last_name FROM pilots WHERE last_name LIKE 'Th%';
 
 Cela récupère les pilotes dont le nom de famille commence par 'Th'.
 
-## 16. Utilisation de `IN` pour Correspondre à une Liste de Valeurs
+## 15. Utilisation de `IN` pour Correspondre à une Liste de Valeurs
 
 `IN` est utilisé pour spécifier plusieurs valeurs dans une clause `WHERE`.
 
@@ -225,7 +211,7 @@ SELECT name, last_name FROM pilots WHERE company IN ('DAIR', 'EAIR');
 
 Cela récupère les pilotes travaillant pour les compagnies 'DAIR' ou 'EAIR'.
 
-## 17. Fonctions de Date et Heure
+## 16. Fonctions de Date et Heure
 
 MySQL offre plusieurs fonctions pour manipuler les dates et les heures.
 
@@ -236,7 +222,3 @@ SELECT name, last_name FROM pilots WHERE next_flight > NOW();
 ```
 
 Cela récupère les pilotes dont le prochain vol est programmé après l'heure actuelle.
-
-## Conclusion
-
-En utilisant ces exemples avec les tables `pilots`, `companies`, et `sales`, vous pouvez voir comment chaque concept du DQL s'applique dans des scénarios réels de base de données. Ces commandes sont essentielles pour interagir efficacement avec les données, les filtrer, les trier, et les analyser selon les besoins.
