@@ -161,7 +161,7 @@ Cela compte le nombre de pilotes par compagnie.
 
 ## 12. Filtrage de Groupes avec `HAVING`
 
-`HAVING` est utilisé pour filtrer les résultats après un regroupement.
+`HAVING` est utilisé pour filtrer les résultats **après un regroupement.**
 
 **Exemple :**
 
@@ -186,6 +186,33 @@ WHERE company IN (SELECT comp FROM companies WHERE city = 'San Francisco');
 ```
 
 Cela récupère les noms et prénoms des pilotes qui travaillent pour des compagnies situées à San Francisco.
+
+Les opérateurs d'ensemble suivants marchent également : `IN, NOT IN, ALL et ANY`, nous verrons plus tard ALL et ANY.
+
+## Syntaxe avec un opérateur d'égalité
+
+```sql
+SELECT *
+FROM `table`
+WHERE `nom_colonne` = (
+    SELECT `valeur`
+    FROM `table2`
+    LIMIT 1
+  )
+  ```
+
+Les opérateurs suivants marchent également : `=, >, <, >=, <= ou <>`
+
+- Exemple dans la même table
+
+```sql
+SELECT num, title
+    FROM tarifs
+    WHERE price = (
+    SELECT MIN(priice)
+    FROM tarifs
+    )
+```
 
 ## 14. Utilisation de `LIKE` pour les Recherches de Modèle
 
@@ -222,3 +249,68 @@ SELECT name, last_name FROM pilots WHERE next_flight > NOW();
 ```
 
 Cela récupère les pilotes dont le prochain vol est programmé après l'heure actuelle.
+
+## Introduction ax fonctions en MySQL
+
+- Les fonctions de chaînes 
+
+```sql
+SELECT 
+    UPPER(name) as NameUpperPilot,
+    LOWER(name) as NameLowerPilot,
+    SUBSTRING(name, 1, 4) as NameSubPilot,
+    LENGTH(name) as LnNamePilot,
+    REPLACE(name, 'e', 'A') as ReplaceNamePilot
+FROM pilots;
+```
+
+Pour la concaténation de chaîne vous pouvez utiliser le code suivant :
+
+```sql
+SELECT CONCAT('Hello', 'World');
+-- avec séparateur
+SELECT CONCAT_WS(', ', 'Hello', 'World');
+
+-- convertis en date ou datetime
+SELECT CONVERT (20130101, date);
+
+SELECT CONVERT (CURRENT_TIMESTAMP, datetime);
+```
+
+- Les fonctions de nombres
+
+FLOOR, CEILING, ROUND, *, + ... 
+
+FLOOR : sol et CEILING plafond.
+
+- Les fonctions de dates
+
+Selon les SGDB les fonctions de date peuvent être plus ou moins fournies.
+
+```sql
+SELECT 
+    birth_date,
+    CURDATE(), -- date courante au format date
+    year(birth_date) as year_pilot_bd,
+    month(birth_date) as month_pilot_bd,
+    EXTRACT( DAY FROM birth_date) as hour_pilot_bd,
+    CURRENT_TIMESTAMP,
+    DATE_ADD(birth_date, INTERVAL 1 MONTH) as date_bd,
+    DATEDIFF(CURRENT_TIMESTAMP, birth_date) as datediff_db,
+    DATE_FORMAT(birth_date, '%W %M %Y') as bd_format -- formatage de date ISO diffère selon les SGBD
+FROM pilots;
+```
+
+## 01 Exercice date de l'an dernier
+
+Donnez le nom du jour il y a un an exactement ?
+
+## 02 Exercice aléatoire
+
+Créez des dates aléatoires de +/- 3jours, par rapport à la date de naissance la plus récente de la table pilots.
+
+Remarque : le select suivant crée une date à + 1 jour par rapport à la date en premier paramètre.
+
+```sql
+SELECT DATE_ADD('2018-05-01', INTERVAL 1 DAY);
+```
