@@ -97,6 +97,8 @@ GROUP BY company;
 
 **Question** : Quel est le nombre de pilotes par groupe d'âge (moins de 30 ans, 30-40 ans, 40-50 ans, plus de 50 ans) ?
 
+Le CASE WHEN permet de créer des tranches qui regroupent les valeurs recherchées, cependant on ne verra que les étiquettes correspondantes dans le then pour ces tranches, le groupby permettra de faire des calculs spécifiques sur ces données groupées.
+
 ```sql
 SELECT 
 CASE 
