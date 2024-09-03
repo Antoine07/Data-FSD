@@ -95,6 +95,12 @@ DEFAULT CURRENT_TIMESTAMP
 
 Dans la table sales il y a une augmentation de 10% des profits pour les compagnies AUS, calculez et modifiez ces valeurs dans la table.
 
+```sql
+UPDATE sales 
+SET profit = profit*1.1 
+WHERE company = 'AUS';
+```
+
 ## Commande de suppression DELETE ou TRUNCATE
 
 Ces deux commandes suppriment les enregistrements d'une table.
@@ -112,7 +118,7 @@ DELETE FROM pilots [WHERE (condition)];
 TRUNCATE est similaire à DELETE. La commande TRUNCATE pour sa part ré-initialisera les valeurs auto-incrémentées. De plus TRUNCATE est plus optimisée dans son exécution et ne comporte pas de clause WHERE. Elle s'utilise seule :
 
 ```sql
-TRUNCATE TABLE pilots ;
+TRUNCATE pilots ;
 ```
 
 ## 03 Exercice sauvegarde et suppression (facultatif)
@@ -136,7 +142,7 @@ pilots (
     `company`,
     `name`,
     `created`,
-    `birth_date`,
+    `birth_day`,
     `next_flight`,
     `num_jobs`
 ) SELECT * FROM `new_pilots`;
