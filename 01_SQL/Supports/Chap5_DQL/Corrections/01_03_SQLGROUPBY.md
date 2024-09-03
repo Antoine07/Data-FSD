@@ -66,7 +66,7 @@
    HAVING COUNT(*) > 2;
    ```
 
-9. ** NOTE AMBIGU Quelle est la somme des profits pour les compagnies qui ont enregistré des profits supérieurs à 120000 au moins trois fois en 2024 ?**
+9. **Quelle est la somme des profits pour les compagnies qui ont enregistré des profits supérieurs à 120000 et quii ont fait 3 profits au moins en 2024 ?**
    ```sql
    SELECT company, SUM(profit) AS total_profit
    FROM sales
