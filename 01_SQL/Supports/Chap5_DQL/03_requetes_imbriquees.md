@@ -70,7 +70,7 @@ SELECT name, last_name FROM pilots WHERE last_name LIKE 'Th%';
 
 Cela récupère les pilotes dont le nom de famille commence par 'Th'.
 
-##  Utilisation de `IN` pour Correspondre à une Liste de Valeurs
+##  Utilisation de `IN` ou `NOT IN` pour respectivement correspondre ou ne pas correspondre à une Liste de Valeurs
 
 `IN` est utilisé pour spécifier plusieurs valeurs dans une clause `WHERE`.
 
@@ -78,6 +78,10 @@ Cela récupère les pilotes dont le nom de famille commence par 'Th'.
 
 ```sql
 SELECT name, last_name FROM pilots WHERE company IN ('DAIR', 'EAIR');
+
+-- ne pas correspondre
+SELECT name, last_name FROM pilots WHERE company NOT IN ('DAIR', 'EAIR');
+
 ```
 
 Cela récupère les pilotes travaillant pour les compagnies 'DAIR' ou 'EAIR'.
