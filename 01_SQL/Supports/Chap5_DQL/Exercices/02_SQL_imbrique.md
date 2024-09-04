@@ -69,23 +69,24 @@ FROM pilots as p;
 
 #### Exercice 1 : Pilotes avec Bonus Supérieur à Tous les Bonus d'une Compagnie
 
-#### Exercice 1 : Pilotes avec Bonus Supérieur à Tous les Bonus d'une Compagnie
-
-Trouvez les pilotes dont le bonus est supérieur à tous les bonus des pilotes travaillant pour la compagnie ayant le code 'B456'.
+Trouvez les pilotes dont le bonus est supérieur à tous les bonus des pilotes travaillant pour la compagnie ayant le code 'DAIR'.
 
 #### Exercice 2 : Pilotes avec Bonus Supérieur à au Moins un Bonus d'une Compagnie
 
-Trouvez les pilotes dont le bonus est supérieur à au moins un des bonus des pilotes travaillant pour la compagnie ayant le code 'C789'.
+Trouvez les pilotes dont le bonus est supérieur à au moins un des bonus des pilotes travaillant pour la compagnie ayant le code 'DAIR'.
 
 #### Exercice 3 : Compagnies avec Profits Supérieurs à Tous les Profits d'une Compagnie
 
-Trouvez les compagnies dont le profit total est supérieur à tous les profits réalisés par la compagnie 'D012'.
+Trouvez les compagnies dont le profit total est supérieur à tous les profits réalisés par la compagnie 'DAIR'.
 
 #### Exercice 4 : Compagnies avec Profits Supérieurs à au Moins un Profit d'une Compagnie
 
-Trouvez les compagnies dont le profit total est supérieur à au moins un des profits réalisés par la compagnie 'E345'.
+Trouvez les compagnies dont le profit total est supérieur à au moins un des profits réalisés par la compagnie 'DAIR'.
 
 #### Exercice 5 : Pilotes avec Nombre d'Heures de Vol Supérieur à Tous les Heures de Vol d'une Compagnie
 
-Trouvez les pilotes dont le nombre total d'heures de vol est supérieur à tous les heures de vol des pilotes travaillant pour la compagnie 'F678'.
+Trouvez les pilotes dont le nombre total d'heures de vol est supérieur à tous les heures de vol des pilotes travaillant pour la compagnie 'DAIR'.
 
+#### Exercice 6 : Pilotes avec bonus
+
+Trouvez les pilotes dont le bonus  est différent à tous les bonus des pilotes travaillant pour la compagnie 'DAIR'.
