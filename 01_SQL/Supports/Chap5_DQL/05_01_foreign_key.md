@@ -52,29 +52,6 @@ La clé étrangère est un autre concept essentiel dans les bases de données re
   );
   ```
 
-## 3. **Formes Normales (Normal Forms)**
-
-Les formes normales sont des règles utilisées pour organiser les attributs d'une base de données relationnelle de manière à minimiser la redondance et à éviter les anomalies d'insertion, de mise à jour et de suppression. Voici un aperçu des premières formes normales, qui sont les plus couramment appliquées :
-
-### **Première Forme Normale (1NF)**
-- **Définition :** Une table est en 1NF si elle ne contient que des valeurs atomiques, c'est-à-dire qu'elle ne doit pas avoir de groupes de valeurs multiples dans une seule colonne. Chaque colonne doit contenir des valeurs indivisibles.
-- **Exemple :** Supposons une table `pilots` avec une colonne `certifications` qui contient une liste de certifications. Pour être en 1NF, cette colonne doit être décomposée en une table séparée où chaque certification est un enregistrement distinct.
-
-### **Deuxième Forme Normale (2NF)**
-- **Définition :** Une table est en 2NF si elle est en 1NF et que tous les attributs non-clés dépendent entièrement de la clé primaire. Il ne doit pas y avoir de dépendance partielle, c'est-à-dire qu'aucun attribut non-clé ne doit dépendre d'une partie seulement de la clé primaire (ceci s'applique aux tables avec une clé primaire composée).
-- **Exemple :** Si une table `pilot_certifications` contient les colonnes `pilot_id`, `certification_type`, et `certification_date`, pour être en 2NF, `certification_type` et `certification_date` doivent dépendre entièrement de `pilot_id` et `certification_type` (si ces deux forment la clé primaire).
-
-### **Troisième Forme Normale (3NF)**
-- **Définition :** Une table est en 3NF si elle est en 2NF et que tous les attributs non-clés ne dépendent que de la clé primaire, et non d'autres attributs non-clés (pas de dépendances transitives).
-- **Exemple :** Si une table `pilots` contient les colonnes `pilot_id`, `name`, `company_id`, et `company_name`, il y a une dépendance transitive entre `company_id` et `company_name` (car `company_name` dépend de `company_id`), donc pour être en 3NF, `company_name` devrait être déplacée dans une table `companies`.
-
-### 4. **Application des Clés Primaires et Étrangères aux Formes Normales**
-
-- **1NF :** La clé primaire garantit que chaque enregistrement est unique et identifiable, ce qui est une exigence pour atteindre la première forme normale. La clé étrangère ne s'applique pas directement à 1NF, mais elle doit respecter l'unicité des enregistrements liés.
-
-- **2NF :** Pour les tables avec des clés primaires composées, chaque attribut non-clé doit dépendre de l'ensemble complet de la clé primaire. Les clés étrangères doivent également respecter cette règle dans les relations qu'elles établissent.
-
-- **3NF :** Ici, la clé primaire joue un rôle crucial en étant la seule déterminante des attributs non-clés, tandis que les clés étrangères aident à maintenir les relations entre les tables sans redondance ni dépendance transitive.
 
 ## Dans MySQL - coder les contraintes 
 
@@ -202,8 +179,8 @@ Les options courantes sont :
 4. **ON UPDATE SET NULL**
 5. **ON DELETE RESTRICT**
 6. **ON UPDATE RESTRICT**
-7. **ON DELETE NO ACTION**
-8. **ON UPDATE NO ACTION**
+
+Il peut, selon la SGDB, exister d'autres options sur la définition des clés étrangères.
 
 ### 1. **ON DELETE CASCADE**
 
@@ -306,38 +283,3 @@ Les options courantes sont :
   ```
 
   **Explication :** Si vous essayez de modifier le code d'une compagnie dans la table `companies` qui est encore référencée par un ou plusieurs pilotes, la mise à jour sera refusée.
-
-### 7. **ON DELETE NO ACTION**
-
-- **Description :** Cette option est similaire à `RESTRICT`, sauf qu'elle est moins strictement implémentée par certains systèmes de gestion de bases de données (SGBD). En pratique, elle se comporte souvent comme `RESTRICT`, en interdisant la suppression si des enregistrements dans la table enfant font référence à la clé primaire.
-  
-- **Exemple :**
-
-  ```sql
-  CREATE TABLE pilots (
-      certificate VARCHAR(6) PRIMARY KEY,
-      name VARCHAR(50) NOT NULL,
-      company CHAR(4),
-      FOREIGN KEY (company) REFERENCES companies(comp) ON DELETE NO ACTION
-  );
-  ```
-
-  **Explication :** Si vous tentez de supprimer une compagnie référencée par des pilotes, l'opération échouera.
-
-### 8. **ON UPDATE NO ACTION**
-
-- **Description :** Similaire à `ON UPDATE RESTRICT`, cette option empêche la mise à jour d'une clé primaire si elle est encore référencée dans la table enfant. Elle se comporte de manière identique à `RESTRICT` dans la plupart des SGBD.
-
-- **Exemple :**
-
-  ```sql
-  CREATE TABLE pilots (
-      certificate VARCHAR(6) PRIMARY KEY,
-      name VARCHAR(50) NOT NULL,
-      company CHAR(4),
-      FOREIGN KEY (company) REFERENCES companies(comp) ON UPDATE NO ACTION
-  );
-  ```
-
-  **Explication :** Si vous essayez de mettre à jour le code d'une compagnie qui est référencée dans la table `pilots`, l'opération échouera.
-
