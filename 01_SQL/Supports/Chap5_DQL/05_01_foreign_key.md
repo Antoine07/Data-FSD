@@ -117,6 +117,8 @@ DELETE FROM companies WHERE comp = 'DAIR';  -- 'DAIR' est référencée dans la 
 **Explication :**  
 Vous ne pouvez pas supprimer une clé primaire (`comp = 'DAIR'`) si elle est utilisée comme clé étrangère dans une autre table (`pilots`), à moins de gérer cette suppression avec une stratégie spécifique (comme `ON DELETE CASCADE`).
 
+Vous ne pouvez pas supprimer des valeurs ayant des références dans une autre table ( contrainte FK -> PK ), et également vous ne pouvez pas insérer des valeurs ayant une référence qui n'existe pas.
+
 ![résumé des contraintes d'intégrité](../images/example_constraint_fk.png)
 
 ## 2. **Contrainte d'unicité avec clé primaire**
