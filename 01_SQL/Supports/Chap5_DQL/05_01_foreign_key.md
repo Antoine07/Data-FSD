@@ -226,6 +226,19 @@ Il peut, selon la SGDB, exister d'autres options sur la définition des clés é
       company CHAR(4),
       FOREIGN KEY (company) REFERENCES companies(comp) ON DELETE CASCADE
   );
+
+  -- si la contrainte existe déjà 
+  ALTER TABLE pilots
+  DROP FOREIGN KEY fk_company_comp ;
+
+  ALTER TABLE pilots
+  DROP KEY fk_company_comp ;
+
+  ALTER TABLE pilots
+  ADD CONSTRAINT fk_company_comp 
+  FOREIGN KEY (company)
+  REFERENCES companies(comp) ON DELETE CASCADE ;
+
   ```
 
   **Explication :** Si vous supprimez une compagnie dans la table `companies`, tous les pilotes travaillant pour cette compagnie seront également supprimés de la table `pilots`.
@@ -257,10 +270,49 @@ Il peut, selon la SGDB, exister d'autres options sur la définition des clés é
   CREATE TABLE pilots (
       certificate VARCHAR(6) PRIMARY KEY,
       name VARCHAR(50) NOT NULL,
-      company CHAR(4),
-      FOREIGN KEY (company) REFERENCES companies(comp) ON DELETE SET NULL
+      company CHAR(4), -- ce champ peut-être NULL
+      CONSTRAINT fk_company_comp FOREIGN KEY (company) REFERENCES companies(comp) ON DELETE SET NULL
   );
+
+  -- avec ALTER TABLE pour modifier les contraintes si elles existent
+    ALTER TABLE pilots
+    DROP FOREIGN KEY fk_company_comp ;
+
+    -- on supprime le nom de la clé
+    ALTER TABLE pilots
+    DROP KEY fk_company_comp ;
+
+    -- recréation de la contrainte
+    ALTER TABLE pilots
+    ADD CONSTRAINT fk_company_comp 
+    FOREIGN KEY (company)
+    REFERENCES companies(comp) ON DELETE SET NULL ;
+
+    -- pour tester le code
+    INSERT INTO companies (comp, name)
+    VALUES ('DAIR', 'DAIR company');
+
+    INSERT INTO pilots (certificate, name, company)
+    VALUES ('P001', 'John Doe', 'DAIR'),
+     ('P002', 'David Doe', 'DAIR');
+
+    -- Vous pouvez maintenant supprimer 
+    DELETE FROM companies WHERE comp='DAIR' ;
   ```
+
+  Dans la table pilots les références passent à NULL
+
+  ```sql
+  SELECT * FROM pilots;
+  ```
+```txt
++-------------+-----------+---------+
+| certificate | name      | company |
++-------------+-----------+---------+
+| P001        | John Doe  | NULL    |
+| P002        | David Doe | NULL    |
++-------------+-----------+---------+
+```
 
   **Explication :** Si vous supprimez une compagnie dans la table `companies`, les pilotes travaillant pour cette compagnie auront la valeur de leur colonne `company` mise à `NULL`.
 
