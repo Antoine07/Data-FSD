@@ -56,7 +56,7 @@ INSERT INTO `pilots` (`certificate`, `bonus`, `num_flying`, `company`, `name`, `
 ('P00009', 1700, 220.5, 'BAIR', 'Hank', 'Miller', 'A380', '1983-08-30 00:00:00', '2024-09-19 14:15:00', 105),
 ('P00010', 2400, 330.7, 'CAIR', 'Ivy', 'Anderson', 'A340', '1992-04-22 00:00:00', '2024-09-20 10:00:00', 140),
 ('P00011', 2600, 470.4, 'DAIR', 'Jack', 'Thompson', 'A320', '1975-11-05 00:00:00', '2024-09-21 11:30:00', 185),
-('P00012', 1900, 150.2, 'EAIR', 'Karen', 'Martinez', 'A340', '1991-02-14 00:00:00', '2024-09-22 15:00:00', 85);
+('P00012', 1900, 150.2, 'EAIR', 'Karen', 'Martinez', 'A340', '1991-02-14 00:00:00', '2023-09-22 15:00:00', 85);
 
 INSERT INTO `sales` (`created_at`, `company`, `profit`) VALUES
 ('2024-07-01', 'DAIR', 130000.00),
@@ -118,3 +118,14 @@ INSERT INTO pilots (certificate, bonus, num_flying, company, name, last_name, pl
 ('P00013', 2500, 420.0, 'DAIR', 'Leo', 'Baker', 'A320', '1981-01-10 00:00:00', '2024-09-23 14:00:00', 170, '{"skills": ["takeoff", "landing"], "languages": ["English", "Spanish"]}'),
 ('P00014', 3100, 650.7, 'EAIR', 'Olivia', 'Garcia', 'A380', '1980-07-28 00:00:00', '2024-09-24 18:00:00', 205, '{"skills": ["navigation", "communication"], "languages": ["English", "French"]}'),
 ('P00015', 1800, 200.1, 'FAIR', 'Liam', 'Martinez', 'A340', '1985-11-30 00:00:00', '2024-09-25 08:00:00', 75, '{"skills": ["maintenance", "safety procedures"], "languages": ["English", "German"]}');
+
+
+--- ajout de données 
+
+INSERT INTO pilots (certificate, bonus, num_flying, company, name, last_name, plane, birth_day, next_flight, num_jobs, extra_info) VALUES
+('P00016', 1500, 300.0, NULL, 'John', 'Doe', 'A320', '1983-05-21 00:00:00', '2024-09-27 12:00:00', 80, '{"skills": ["landing", "takeoff"], "languages": ["English"]}'),
+('P00017', 1800, 250.4, NULL, 'Jane', 'Smith', 'A340', '1990-11-14 00:00:00', '2024-09-28 09:30:00', 95, '{"skills": ["navigation", "emergency procedures"], "languages": ["French", "English"]}');
+
+INSERT INTO companies (comp, street, city, name, num_street) VALUES
+('ZAIR', 'High St', 'Dallas', 'Airline Z', 222),
+('YAIR', 'Main St', 'Miami', 'Airline Y', 333);
