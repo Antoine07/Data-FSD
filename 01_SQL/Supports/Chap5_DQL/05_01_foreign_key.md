@@ -173,6 +173,17 @@ CREATE TABLE pilots (
 
 INSERT INTO pilots (certificate, name, company)
 VALUES ('P00017', 'Alice Green', NULL);  -- 'company' ne peut pas être NULL
+
+-- par contre ceci marche car company peut-être NULL
+CREATE TABLE pilots (
+    certificate VARCHAR(6) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    company CHAR(4), 
+    FOREIGN KEY (company) REFERENCES companies(comp)
+);
+
+INSERT INTO pilots (certificate, name, company)
+VALUES ('P00017', 'Alice Green', NULL);  -- 'company' ça marche !! 
 ```
 
 **Erreur générée :**  
