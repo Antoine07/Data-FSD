@@ -44,32 +44,77 @@ L'`LEFT JOIN` retourne toutes les lignes de la table de gauche, et les lignes co
 
 ![jointure](../images/jointure_left.png)
 
+Exemple :
+
+Imaginons que nous ayons deux tables :
+
+- pilots (table de gauche) : Contient des informations sur les pilotes.
+- companies (table de droite) : Contient des informations sur les compagnies aériennes.
+
 **Exemple SQL :**
 
 ```sql
-SELECT 
-    a.name AS employee_name, 
-    b.name AS department_name
-FROM B AS b
-LEFT JOIN A AS a 
-ON b.department_id = a.id;
+SELECT p.name, c.name as company_name
+FROM pilots p  -- table de gauche TABLE DOMINANTE
+LEFT JOIN companies c  -- table de droite 
+ON p.company = c.comp;
+```
+
+**Ce que fait le LEFT JOIN :**
+
+1. Toutes les lignes de la table pilots (gauche) seront incluses dans le résultat.
+2. Si un pilote n'a pas de compagnie associée dans la table companies, les colonnes de la table companies (droite) auront la valeur NULL.
+3. Si un pilote a une correspondance dans companies, les informations de cette compagnie seront affichées.
+Schéma :
+
+```txt
+pilots              companies          Résultat (LEFT JOIN)
+-------             ----------         ----------------------
+name   company      comp   name        p.name        company_name
+----   -------      ----   ----        ----        ------------
+John   DAIR         DAIR   Airline D   John        Airline D
+Emma   EAIR         EAIR   Airline E   Emma        Airline E
+Tom    NULL         BAIR   Airline B   Tom         NULL   <-- Pilote sans compagnie pilots TABLE DOMINANTE
 ```
 
 ### 2.3. `RIGHT JOIN`
 
-L'`RIGHT JOIN` retourne toutes les lignes de la table de droite, et les lignes correspondantes de la table de gauche. Les colonnes de la table de gauche seront `NULL` pour les lignes sans correspondance.
+Dans une jointure RIGHT JOIN, la table de droite est dominante. Cela signifie que toutes les lignes de la table de droite (celle mentionnée après le JOIN) seront affichées, même si elles n'ont pas de correspondance dans la table de gauche.
 
 ![jointure externe right](../images/jointure_right.png)
 **Exemple SQL :**
 
 ```sql
-SELECT 
-    a.name AS employee_name, 
-    b.name AS department_name
-FROM A as a
-RIGHT JOIN B AS b 
-ON b.department_id = a.id;
+SELECT p.name, c.name as company_name
+FROM pilots p
+RIGHT JOIN companies c -- table de droite DOMINANTE
+ON p.company = c.comp;
+
 ```
+
+Ce que fait le RIGHT JOIN :
+
+1. Toutes les lignes de la table companies (droite) seront incluses dans le résultat.
+2. Si une compagnie n'a pas de pilote correspondant dans la table pilots, les colonnes de la table pilots (gauche) auront la valeur NULL.
+3. Si une compagnie a une correspondance dans pilots, les informations sur les pilotes seront affichées.
+
+schéma: 
+
+```txt
+pilots              companies          Résultat (RIGHT JOIN)
+-------             ----------         ----------------------
+name   company      comp   name        name        company_name
+----   -------      ----   ----        ----        ------------
+John   DAIR         DAIR   Airline D   John        Airline D
+Emma   EAIR         EAIR   Airline E   Emma        Airline E
+NULL   NULL         BAIR   Airline B   NULL        Airline B   <-- Compagnie sans pilote table DOMINANTE
+
+```
+
+## Résumé des Dominances
+- LEFT JOIN : La table de gauche est dominante, donc toutes les lignes de cette table seront incluses dans le résultat, avec des NULL dans la table de droite si pas de correspondance.
+- RIGHT JOIN : La table de droite est dominante, donc toutes les lignes de cette table seront incluses, avec des NULL dans la table de gauche si pas de correspondance.
+
 
 ### 2.4. `FULL OUTER JOIN`
 
