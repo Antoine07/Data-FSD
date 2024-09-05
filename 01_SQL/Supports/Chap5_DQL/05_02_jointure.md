@@ -65,6 +65,7 @@ ON p.company = c.comp;
 1. Toutes les lignes de la table pilots (gauche) seront incluses dans le résultat.
 2. Si un pilote n'a pas de compagnie associée dans la table companies, les colonnes de la table companies (droite) auront la valeur NULL.
 3. Si un pilote a une correspondance dans companies, les informations de cette compagnie seront affichées.
+
 Schéma :
 
 ```txt
@@ -107,7 +108,7 @@ name   company      comp   name        name        company_name
 ----   -------      ----   ----        ----        ------------
 John   DAIR         DAIR   Airline D   John        Airline D
 Emma   EAIR         EAIR   Airline E   Emma        Airline E
-NULL   NULL         BAIR   Airline B   NULL        Airline B   <-- Compagnie sans pilote table DOMINANTE
+                    BAIR   Airline B   NULL        Airline B   <-- Compagnie sans pilote table DOMINANTE
 
 ```
 
