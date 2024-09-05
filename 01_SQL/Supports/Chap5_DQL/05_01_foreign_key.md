@@ -171,6 +171,13 @@ CREATE TABLE pilots (
     FOREIGN KEY (company) REFERENCES companies(comp)
 );
 
+```
+**Erreur générée :**  
+`ERROR 1048: Column 'company' cannot be null`
+
+```sql
+
+-- vous avez un pilote dans la base mais vous n'avez encore l'information : "dans quelle compagnie il travaille
 INSERT INTO pilots (certificate, name, company)
 VALUES ('P00017', 'Alice Green', NULL);  -- 'company' ne peut pas être NULL
 
@@ -178,16 +185,13 @@ VALUES ('P00017', 'Alice Green', NULL);  -- 'company' ne peut pas être NULL
 CREATE TABLE pilots (
     certificate VARCHAR(6) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    company CHAR(4), 
+    company CHAR(4), -- plus souple pour gérer l'insertion des pilotes le champ peut etre NULL
     FOREIGN KEY (company) REFERENCES companies(comp)
 );
 
 INSERT INTO pilots (certificate, name, company)
 VALUES ('P00017', 'Alice Green', NULL);  -- 'company' ça marche !! 
 ```
-
-**Erreur générée :**  
-`ERROR 1048: Column 'company' cannot be null`
 
 **Explication :**  
 La colonne `company` est définie avec la contrainte `NOT NULL`, ce qui signifie qu'elle doit toujours contenir une valeur valide.
