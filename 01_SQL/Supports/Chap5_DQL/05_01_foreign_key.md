@@ -17,7 +17,7 @@ La clé primaire est un concept fondamental dans la conception de bases de donn�
 CREATE DATABASE IF NOT EXISTS `db_aviation_2`
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE db_aviation_2 
+USE db_aviation_2;
 
 CREATE TABLE pilots (
     certificate VARCHAR(6) PRIMARY KEY,
@@ -40,16 +40,20 @@ La clé étrangère est un autre concept essentiel dans les bases de données re
 
   ```sql
   CREATE TABLE companies (
-    comp CHAR(4) PRIMARY KEY,
+    comp CHAR(4) PRIMARY KEY, -- clé primaire
     name VARCHAR(50) NOT NULL
   );
-
+  -- si table pas encore crée on peut utiliser ce code
   CREATE TABLE pilots (
     certificate VARCHAR(6) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     company CHAR(4),
-    FOREIGN KEY (company) REFERENCES companies(comp)
+    CONSTRAINT fk_company_comp FOREIGN KEY (company) REFERENCES companies(comp)
   );
+
+   -- si la table existe existe il faut rajouter la clé étrangère ATTENTION les deux clés doivent être identique en terme de type
+   ALTER TABLE pilots 
+   ADD CONSTRAINT fk_company_comp FOREIGN KEY (company) REFERENCES companies(comp) ;
   ```
 
 
@@ -96,6 +100,14 @@ Vous ne pouvez pas insérer une clé étrangère (`company = 'XXXX'`) qui ne cor
 Si vous essayez de supprimer une compagnie qui est référencée par un pilote dans la table `pilots`, vous allez rencontrer une contrainte d'intégrité référentielle.
 
 ```sql
+INSERT INTO companies (comp, name)
+VALUES ('DAIR', 'Company DAIR'); 
+
+-- un pilote qui travaille pour la compagnie DAIR
+
+INSERT INTO pilots (certificate, name, company)
+VALUES ('P00016', 'John Doe', 'DAIR');
+
 DELETE FROM companies WHERE comp = 'DAIR';  -- 'DAIR' est référencée dans la table 'pilots'
 ```
 
@@ -104,6 +116,8 @@ DELETE FROM companies WHERE comp = 'DAIR';  -- 'DAIR' est référencée dans la 
 
 **Explication :**  
 Vous ne pouvez pas supprimer une clé primaire (`comp = 'DAIR'`) si elle est utilisée comme clé étrangère dans une autre table (`pilots`), à moins de gérer cette suppression avec une stratégie spécifique (comme `ON DELETE CASCADE`).
+
+![résumé des contraintes d'intégrité](../images/example_constraint_fk.png)
 
 ## 2. **Contrainte d'unicité avec clé primaire**
 
